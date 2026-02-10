@@ -169,16 +169,18 @@ class PageController extends ApiController
         // print_r($order);
         // exit;
         $settings = ShopSettings::find()->active()->one();
+        $file = $this->runPdfCronAsync($id);
         $content = $this->renderPartial('order-confirm', [
             'order' => $order,
             'settings' => $settings
         ]);
 
-        $this->runPdfCronAsync($id);
+       
 
         return $this->asJson([
             'status' => 200,
-            'content' => $content
+            'content' => $content,
+            'file' => $file
         ]);
     }
 
@@ -191,7 +193,7 @@ class PageController extends ApiController
         // $cmd = "php $yiiPath cron/pdf $id >> $logPath 2>&1 &";
         // \exec($cmd);
         
-        echo "Pdf generation process started :: " . date('d/m/Y H:i:s A') . "\n\n";
+      //  echo "Pdf generation process started :: " . date('d/m/Y H:i:s A') . "\n\n";
 
         $order = Order::find()->where(['order_id' => $id])->one();
         $settings = ShopSettings::find()->active()->one();
@@ -233,7 +235,8 @@ class PageController extends ApiController
         
         file_put_contents($file, $dompdf->output());
         
-        echo "PDF Generated Successfully: " . $file;
-        exit;
+        return Yii::getAlias('@baseUrl') . "/site/download-order?file=order_" . $order->order_id . ".pdf";
+        
+       // echo "PDF Generated Successfully: " . $file;
     }
 }
