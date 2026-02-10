@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\components\Controller;
-
+use Yii;
 
 class SiteController extends Controller
 {
