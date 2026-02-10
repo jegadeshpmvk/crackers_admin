@@ -1,0 +1,157 @@
+@media only screen and (max-width: 960px) {
+    .panel.left {
+        width:40px;
+    }
+    .nav li a.fa:before {
+        font-size: 14px;
+    }
+    .panel.right {
+        padding-left: 40px;
+        overflow: hidden;
+    }
+    .nav li a {
+        text-overflow: clip;
+    }
+    .nav li a > span {
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        background-color: #23282d;
+        padding: 12px;
+        width: 140px;
+        transform: translateY(-50%);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .4s, visibility .4s;
+    }
+    .nav li a:hover > span {
+        opacity: 1;
+        visibility: visible;
+    }
+    .nav li.active:after {
+        border: solid 5px transparent;
+        border-right-color: #f1f1f1;
+    }
+}
+@media only screen and (max-width: 820px) {
+    .grid-view table.table tr td, .grid-view table.table th {
+        position: relative;
+        clear: both;
+        display: block;
+        width: auto;
+        padding: 15px 0 0 0;
+    }    
+    .grid-view table.table tr td:first-child, .grid-view table.table th:first-child { 
+        padding: 0;
+    }
+    .grid-view table.table th, .grid-view table.table tfoot td {
+        display: none;
+    }
+    .grid-view table.table th:first-child,  .grid-view table.table tfoot td:first-child {
+        display: block;
+    }
+    .grid-view table.table tr {
+        position: relative;
+        display: block;
+        padding: 13px 10px;
+    }
+    .grid-view table.table tr td.grid-actions {
+        position: absolute;
+        top:0;
+        right:0;
+        padding: 15px;
+        width: auto;
+    }
+    .full-row-click {
+        display: none;   
+    }
+    .options {
+        left: auto;
+    }
+    .options button, .options a, a.btn {
+        padding: 0 10px;
+    }
+    .grid-view table.table th, .grid-view table.table tfoot td {
+        border:none;
+    }
+}
+@media only screen and (max-width: 600px) {
+    a.file-upload label, a.browse-library, a.browse-smugmug, a.crop-from {
+        padding: 5px 10px;
+    }
+    .flexible-content .repeater .drag {
+        width: 30px;
+    }
+    ol.repeater > li {
+        padding: 1px 30px;
+    }
+    .repeater-wrap .repeater-actions > * {
+        width: 30px;
+    }
+}
+@media only screen and (max-width: 420px) {
+    .nav li a > span {
+        display:none;
+    }
+    .options button, .options a, a.btn {
+        padding: 0 10px;
+    }
+    .content {
+        padding: 15px 2%;
+    }
+    h1.p-tl, h1.sub {
+        margin-right: 0;
+    }
+    .grid-view .summary {
+        position: static;
+    }
+    h1, h2, h3 {
+        padding:0 0 10px;
+    }
+    .dashicons, .dashicons-before:before, .ab-item:before {
+        margin-right: 5px;
+    }
+    html.has-search .panel.right {
+        padding-left: 40px;
+        padding-right: 0;
+    }
+    html.has-search .panel.left, html.has-sort .panel.left {
+        width: 40px;
+    }
+    .options a span, .bar a span {
+        display: none;
+    }
+    .options a.fa:before, .bar a.fa:before {
+        margin-right: 0;
+    }
+    .header .logo a {
+        padding: 6px 10px;
+    }
+    .nav li a.fa:before {
+        font-size:14px;
+    }
+    .flexible-content .repeater .drag {
+        width: 20px;
+    }
+    ol.repeater > li {
+        padding: 1px 20px;
+    }
+    .repeater-wrap .repeater-actions > * {
+        width: 20px;
+    }
+    ol > li:before {
+        left:7px;        
+    }
+    ._2divs .form-group {
+        width:100%;
+    }
+    a.file-upload label, a.browse-library, a.browse-smugmug, a.crop-from, a.file-upload {
+        display:block;
+    }
+    a.browse-library {
+        margin: 10px 0 0 0;
+    }
+    .repeater-item {
+        padding: 0;
+    }
+}
