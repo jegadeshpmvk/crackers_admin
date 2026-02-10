@@ -13,7 +13,9 @@ use app\models\Order;
 use app\models\OrderItems;
 use app\models\Delivery;
 use app\components\ApiController;
-use mikehaertl\wkhtmlto\Pdf;
+// use mikehaertl\wkhtmlto\Pdf;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class PageController extends ApiController
 {
@@ -182,10 +184,56 @@ class PageController extends ApiController
 
     public function runPdfCronAsync($id)
     {
-        $yiiPath = Yii::getAlias('@webroot') . '/yii';
-        $logPath = Yii::getAlias('@webroot') . '/cron.log';
+        // $yiiPath = Yii::getAlias('@webroot') . '/yii';
+        // $logPath = Yii::getAlias('@webroot') . '/cron.log';
+        // //echo ini_get('disable_functions');exit;
 
-        $cmd = "php $yiiPath cron/pdf $id >> $logPath 2>&1 &";
-        exec($cmd);
+        // $cmd = "php $yiiPath cron/pdf $id >> $logPath 2>&1 &";
+        // \exec($cmd);
+        
+        echo "Pdf generation process started :: " . date('d/m/Y H:i:s A') . "\n\n";
+
+        $order = Order::find()->where(['order_id' => $id])->one();
+        $settings = ShopSettings::find()->active()->one();
+        
+        /* ==============================
+         * Render HTML View File
+         * ============================== */
+        
+        $viewFile = Yii::getAlias('@app/views/page/order-confirm-pdf.php');
+        
+        $html = Yii::$app->view->renderFile($viewFile, [
+            'order' => $order,
+            'settings' => $settings,
+        ]);
+        
+        /* ==============================
+         * DomPDF Setup
+         * ============================== */
+        
+        $options = new Options();
+        $options->set('isRemoteEnabled', true); // allow images, css from URL
+        
+        $dompdf = new Dompdf($options);
+        
+        /* Load HTML Content */
+        $dompdf->loadHtml($html);
+        
+        /* Set Paper Size */
+        $dompdf->setPaper('A4', 'portrait');
+        
+        /* Render PDF */
+        $dompdf->render();
+        
+        /* ==============================
+         * Save PDF File
+         * ============================== */
+        
+        $file = Yii::getAlias('@webroot') . "/media/files/order/order_" . $order->order_id . ".pdf";
+        
+        file_put_contents($file, $dompdf->output());
+        
+        echo "PDF Generated Successfully: " . $file;
+        exit;
     }
 }
