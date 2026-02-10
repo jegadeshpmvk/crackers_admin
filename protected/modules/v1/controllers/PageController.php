@@ -235,7 +235,7 @@ class PageController extends ApiController
         
         file_put_contents($file, $dompdf->output());
         
-        return Yii::getAlias('@baseUrl') . "/site/download-order?file=order_" . $order->order_id . ".pdf";
+        return Yii::getAlias('@baseUrl') . "/download-order?file=order_" . $order->order_id . ".pdf";
         
        // echo "PDF Generated Successfully: " . $file;
     }
