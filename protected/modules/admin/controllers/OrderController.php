@@ -49,6 +49,21 @@ class OrderController extends Controller
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
+    public function actionStatusUpdate()
+    {
+        $value = Yii::$app->request->post('value');
+        $id = Yii::$app->request->post('id');
+        $model = $this->findModel($id);
+        $model->order_status = (int) $value;
+       
+        $model->save(false);
+        $arr = [
+            'status' => 200,
+            'message' => 'Product were ' . $model->saveType . 'd successfully.'
+        ];
+        return json_encode($arr);
+    }
+
     protected function findModel($id)
     {
         if (($model = Order::findOne($id)) !== null) {

@@ -117,6 +117,7 @@ class PageController extends ApiController
             $order->packing_charge = $request->post('packing_charge', 0);
             $order->promotion_discount = $request->post('promotion_discount', 0);
             $order->promotion_discount_id = $request->post('promotion_discount_id', 0);
+            $order->order_status = 1;
 
             if (!$order->save()) {
                 throw new \Exception("Order Save Failed: " . json_encode($order->errors));
@@ -175,7 +176,7 @@ class PageController extends ApiController
             'settings' => $settings
         ]);
 
-       
+
 
         return $this->asJson([
             'status' => 200,
@@ -192,51 +193,51 @@ class PageController extends ApiController
 
         // $cmd = "php $yiiPath cron/pdf $id >> $logPath 2>&1 &";
         // \exec($cmd);
-        
-      //  echo "Pdf generation process started :: " . date('d/m/Y H:i:s A') . "\n\n";
+
+        //  echo "Pdf generation process started :: " . date('d/m/Y H:i:s A') . "\n\n";
 
         $order = Order::find()->where(['order_id' => $id])->one();
         $settings = ShopSettings::find()->active()->one();
-        
+
         /* ==============================
          * Render HTML View File
          * ============================== */
-        
+
         $viewFile = Yii::getAlias('@app/views/page/order-confirm-pdf.php');
-        
+
         $html = Yii::$app->view->renderFile($viewFile, [
             'order' => $order,
             'settings' => $settings,
         ]);
-        
+
         /* ==============================
          * DomPDF Setup
          * ============================== */
-        
+
         $options = new Options();
         $options->set('isRemoteEnabled', true); // allow images, css from URL
-        
+
         $dompdf = new Dompdf($options);
-        
+
         /* Load HTML Content */
         $dompdf->loadHtml($html);
-        
+
         /* Set Paper Size */
         $dompdf->setPaper('A4', 'portrait');
-        
+
         /* Render PDF */
         $dompdf->render();
-        
+
         /* ==============================
          * Save PDF File
          * ============================== */
-        
+
         $file = Yii::getAlias('@webroot') . "/media/files/order/order_" . $order->order_id . ".pdf";
-        
+
         file_put_contents($file, $dompdf->output());
-        
+
         return Yii::getAlias('@baseUrl') . "/download-order?file=order_" . $order->order_id . ".pdf";
-        
-       // echo "PDF Generated Successfully: " . $file;
+
+        // echo "PDF Generated Successfully: " . $file;
     }
 }

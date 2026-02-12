@@ -1,7 +1,11 @@
 <?php
 
+use Yii;
 use yii\helpers\Html;
 use app\extended\GridView;
+use yii\helpers\Url;
+
+
 ?>
 <div class="options">
     <?= Html::a('<span>Export as Excel</span>', ['export-excel'], ['class' => 'fa fa-table', 'target' => '_blank']) ?>
@@ -18,7 +22,7 @@ GridView::widget([
         ],
         [
             'attribute' => 'created_at',
-            'format' => ['date', 'php:d F Y H:i:s a'],
+            'format' => ['date', 'php:Y-m-d'],
             'label' => 'Date'
         ],
         [
@@ -39,20 +43,43 @@ GridView::widget([
         ],
         [
             'attribute' => 'final_total',
-            'label' => 'Amount'
+            'label' => 'Amount',
+            'value' => function ($model) {
+                return Yii::$app->formatter->asCurrency($model->final_total, 'INR');
+            }
         ],
         [
             'attribute' => 'order_status',
-            'label' => 'Status'
-        ],
-        [
-            'attribute' => 'created_at',
-            'format' => ['date', 'php:d F Y H:i:s a']
+            'label' => 'Status',
+            'format' => 'raw',
+            'value' => function ($model) {
+                $moduleId = Yii::$app->controller->module->id;
+                $controllerId = Yii::$app->controller->id;
+                $urlprefix = "/$moduleId/$controllerId/";
+                return Html::dropDownList(
+                    'order_status',
+                    (int)$model->order_status,
+                    [
+                        1 => 'Order Received',
+                        2 => 'AMT Pending',
+                        3 => 'Amt Received',
+                        4 => 'Packing',
+                        5 => 'Delivered',
+                        6 => 'Cancelled',
+                    ],
+                    [
+                        'class' => 'form-control',
+                        'data-id' => $model->id,
+                        'data-url' => Url::to([$urlprefix . 'status-update'])
+                    ]
+                );
+            },
         ],
         [
             'class' => 'app\extended\ActionColumn',
+            'template' => '{order_view}',
             'contentOptions' => ['class' => 'grid-actions']
-        ],
+        ]
     ],
 ]);
 ?>

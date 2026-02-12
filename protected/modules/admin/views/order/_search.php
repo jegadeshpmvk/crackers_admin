@@ -8,13 +8,14 @@ use yii\widgets\ActiveForm;
 
     <?php
     $form = ActiveForm::begin([
-                'action' => ['index'],
-                'method' => 'get',
+        'action' => ['index'],
+        'method' => 'get',
     ]);
     ?>
 
     <?= $form->field($model, 'order_id'); ?>
     <?= $form->field($model, 'customer_name'); ?>
+    <?= $form->field($model, 'phone'); ?>
 
     <div class="form-group actions">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

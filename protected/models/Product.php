@@ -32,9 +32,9 @@ class Product extends ActiveRecord
     public function rules()
     {
         $rules = [
-            [['category_id', 'name', 'tamil_name', 'price', 'mrp', 'type', 'alignment', 'code'], 'required'],
-            [['video_url',  'image_ids'], 'safe'],
-            [['alignment', 'code'], 'unique']
+            [['category_id', 'name', 'mrp', 'type', 'alignment'], 'required'],
+            [['video_url', 'image_ids', 'price', 'tamil_name',], 'safe'],
+            [['alignment'], 'unique']
         ];
         return ArrayHelper::merge(parent::rules(), $rules);
     }
@@ -46,6 +46,7 @@ class Product extends ActiveRecord
             'name' => 'name',
             'tamil_name' => 'tamil_name',
             'price' => 'price',
+            'selling_price' => 'sellingPrice',
             'category' => 'category',
             'mrp' => 'mrp',
             'type' => 'type',
@@ -76,5 +77,16 @@ class Product extends ActiveRecord
     public function getImages()
     {
         return $this->hasMany(Media::className(), ['id' => 'image_ids']);
+    }
+
+    public function getSellingPrice()
+    {
+        $settings =  ShopSettings::find()->active()->one();
+        if ($this->price) {
+            $price = $this->price;
+        } else {
+            $price = (($this->mrp * $settings->bill_discount) / 100);
+        }
+        return $price;
     }
 }

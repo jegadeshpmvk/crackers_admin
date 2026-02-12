@@ -34,7 +34,6 @@ class CategoryController extends Controller
     protected function renderForm($model)
     {
         if ($model->load(Yii::$app->request->post())) {
-
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Category details were saved successfully.');
                 return $this->redirectCheck(['index']);
@@ -52,6 +51,9 @@ class CategoryController extends Controller
     {
         $model = new Category();
         $model->saveType = 'created';
+        $lastAlignment =  Category::find()->max('alignment');
+        $number = (int) preg_replace('/[^0-9]/', '', $lastAlignment);
+        $model->alignment = $number + 1;
         return $this->renderForm($model);
     }
 
@@ -59,11 +61,39 @@ class CategoryController extends Controller
     {
         $model = $this->findModel($id);
         $model->saveType = 'updated';
+
         return $this->renderForm($model);
     }
 
-    public function actionDelete($id, $value)
+    // public function actionDelete($id, $value)
+    // {
+    //     $model = $this->findModel($id);
+    //     $model->deleted = (int) $value;
+    //     if ($value == 1) {
+    //         $model->saveType = 'deleted';
+    //     } else {
+    //         $model->saveType = 'restored';
+    //     }
+    //     $model->save(false);
+    //     return $this->redirect(\Yii::$app->request->referrer);
+    // }
+
+    public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+
+        // Permanent delete from database
+        $model->delete();
+
+        Yii::$app->session->setFlash('success', 'Record deleted permanently.');
+
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionEnable()
+    {
+        $value = Yii::$app->request->post('checked');
+        $id = Yii::$app->request->post('id');
         $model = $this->findModel($id);
         $model->deleted = (int) $value;
         if ($value == 1) {
@@ -72,7 +102,11 @@ class CategoryController extends Controller
             $model->saveType = 'restored';
         }
         $model->save(false);
-        return $this->redirect(\Yii::$app->request->referrer);
+        $arr = [
+            'status' => 200,
+            'message' => 'Product were ' . $model->saveType . 'd successfully.'
+        ];
+        return json_encode($arr);
     }
 
     protected function findModel($id)
@@ -137,6 +171,7 @@ class CategoryController extends Controller
 
             $model->name = trim((string)$row[1] ?? '');
             $model->discount = trim((string)$row[2] ?? '');
+            $model->alignment = trim((string)$row[3] ?? '');
 
             if ($model->isNewRecord) {
                 $model->created_at = time();

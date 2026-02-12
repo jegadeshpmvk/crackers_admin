@@ -65,8 +65,35 @@ class ProductController extends Controller
         return $this->renderForm($model);
     }
 
-    public function actionDelete($id, $value)
+    // public function actionDelete($id, $value)
+    // {
+    //     $model = $this->findModel($id);
+    //     $model->deleted = (int) $value;
+    //     if ($value == 1) {
+    //         $model->saveType = 'deleted';
+    //     } else {
+    //         $model->saveType = 'restored';
+    //     }
+    //     $model->save(false);
+    //     return $this->redirect(\Yii::$app->request->referrer);
+    // }
+
+    public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+
+        // Permanent delete from database
+        $model->delete();
+
+        Yii::$app->session->setFlash('success', 'Record deleted permanently.');
+
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionEnable()
+    {
+        $value = Yii::$app->request->post('checked');
+        $id = Yii::$app->request->post('id');
         $model = $this->findModel($id);
         $model->deleted = (int) $value;
         if ($value == 1) {
@@ -75,7 +102,11 @@ class ProductController extends Controller
             $model->saveType = 'restored';
         }
         $model->save(false);
-        return $this->redirect(\Yii::$app->request->referrer);
+        $arr = [
+            'status' => 200,
+            'message' => 'Product were ' . $model->saveType . 'd successfully.'
+        ];
+        return json_encode($arr);
     }
 
     protected function findModel($id)

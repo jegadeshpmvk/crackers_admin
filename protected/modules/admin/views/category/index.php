@@ -31,8 +31,9 @@ GridView::widget([
         ],
         [
             'class' => 'app\extended\ActionColumn',
+            'template' => '{update}{delete}{enable}',
             'contentOptions' => ['class' => 'grid-actions']
-        ],
+        ]
     ],
 ]);
 ?>

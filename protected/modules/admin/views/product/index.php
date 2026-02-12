@@ -31,15 +31,12 @@ GridView::widget([
         ],
         [
             'attribute' => 'alignment'
-        ],
-        [
-            'attribute' => 'created_at',
-            'format' => ['date', 'php:d F Y H:i:s a']
-        ],
+        ],       
         [
             'class' => 'app\extended\ActionColumn',
+            'template' => '{update}{delete}{enable}',
             'contentOptions' => ['class' => 'grid-actions']
-        ],
+        ]
     ],
 ]);
 ?>

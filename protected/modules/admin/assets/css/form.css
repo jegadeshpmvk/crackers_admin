@@ -282,3 +282,62 @@ form div.options a.fa.fa-remove{
     font-weight: bold;
     margin: 0 0 10px;
 }
+.switch {
+    width: 60px;
+    height: 25px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    z-index: 2;
+    margin-left: 10px;
+}
+
+/* Rounded sliders */
+.slider_round {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 21px;
+    background-color: #B5B6B7;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider_round:before {
+    position: absolute;
+    content: "";
+    height: 19px;
+    width: 19px;
+    left: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    transition: transform .4s;
+    border-radius: 50%;
+    text-align: center;
+}
+
+input:checked + .slider_round {
+    background-color: #38B490;
+}
+
+input:checked + .slider_round:before {
+    transform: translate(39px, -50%);
+}
+.slider_round:after {
+    content: "Deactive";
+    font-size: 9px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    left: 22px;
+    transition: left .4s;
+}
+input:checked + .slider_round:after {
+    content: "Active";
+    left: 5px;
+}

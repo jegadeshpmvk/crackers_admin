@@ -12,7 +12,7 @@ class ReportSearch extends Order
     public function rules()
     {
         return [
-            [['order_id', 'customer_name'], 'safe'],
+            [['order_id', 'order_status', 'customer_name'], 'safe'],
         ];
     }
 
@@ -32,6 +32,7 @@ class ReportSearch extends Order
         }
 
         $query->andFilterWhere(['like', 'order_id', $this->order_id])
+            ->andFilterWhere(['like', 'order_status', $this->order_status])
             ->andFilterWhere(['like', 'customer_name', $this->customer_name]);
 
         return $dataProvider;

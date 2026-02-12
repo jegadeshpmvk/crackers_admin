@@ -2,19 +2,31 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 ?>
 
 <div class="search-form">
 
     <?php
     $form = ActiveForm::begin([
-                'action' => ['index'],
-                'method' => 'get',
+        'action' => ['index'],
+        'method' => 'get',
     ]);
     ?>
-
-    <?= $form->field($model, 'order_id'); ?>
-    <?= $form->field($model, 'customer_name'); ?>
+    <?= $form->field($model, 'order_status')
+        ->dropDownList([
+            1 => 'Order Received',
+            2 => 'AMT Pending',
+            3 => 'Amt Received',
+            4 => 'Packing',
+            5 => 'Delivered',
+            6 => 'Cancelled',
+        ], [
+            'prompt' => 'Select Status...',
+            'required' => true
+        ])
+        ->label("Order Status");
+    ?> <?= $form->field($model, 'customer_name'); ?>
 
     <div class="form-group actions">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

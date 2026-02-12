@@ -32,18 +32,17 @@ $form = ActiveForm::begin();
                 <?= $form->field($model, 'name')->textInput(['required' => 'required', 'maxlength' => 255]); ?>
             </div>
             <div class="_2divs">
-                <?= $form->field($model, 'tamil_name')->textInput(['required' => 'required', 'maxlength' => 255]); ?>
+                <?= $form->field($model, 'tamil_name')->textInput(['maxlength' => 255]); ?>
                 <?= $form->field($model, 'mrp')->textInput(['type' => 'number', 'required' => 'required', 'maxlength' => 255]); ?>
 
             </div>
             <div class="_2divs">
-                <?= $form->field($model, 'price')->textInput(['type' => 'number', 'required' => 'required', 'maxlength' => 255]); ?>
+                <?= $form->field($model, 'price')->textInput(['type' => 'number', 'maxlength' => 255])->label('Selling Price'); ?>
                 <?= $form->field($model, 'type')->textInput(['required' => 'required', 'maxlength' => 255]); ?>
             </div>
             <div class="_2divs">
                 <?= $form->field($model, 'video_url')->textInput(); ?>
                 <?= $form->field($model, 'alignment')->textInput(['required' => 'required', 'maxlength' => 5]); ?>
-                <?= $form->field($model, 'code')->textInput(['required' => 'required']); ?>
             </div>
         </div>
     </div>

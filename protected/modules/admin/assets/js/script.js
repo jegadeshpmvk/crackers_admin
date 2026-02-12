@@ -170,10 +170,56 @@ $(function () {
     page.load();
     page.table();
     page.fileDragDorp();
-    
+
     if ($('#lineChart').length) {
         page.customLineChart();
     }
+
+    $('body').on('change', '.checkbox_enable', function (e) {
+        e.preventDefault();
+        var el = $(this), id = el.val(), checked = 1, text = 'disabled';
+        if ($(this).is(":checked")) {
+            var checked = 0, text = 'enabled';
+        }
+        $.ajaxq("get-enable", {
+            url: el.attr('data-url'),
+            type: 'post',
+            data: { id: id, checked: checked },
+            dataType: 'json',
+            success: function (data) {
+                if (data.status == 200) {
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success(el.attr('data-name') + ' ' + text + ' sucessfully');
+                    location.reload();
+                }
+            }, error: function () {
+                alert('Error in form');
+            },
+            complete: function () {
+            }
+        });
+    });
+
+    $('body').on('change', 'select[name=order_status].form-control', function (e) {
+        e.preventDefault();
+        var el = $(this), value = el.val(), id = el.attr('data-id');
+        $.ajaxq("get-enable", {
+            url: el.attr('data-url'),
+            type: 'post',
+            data: { id: id, value: value },
+            dataType: 'json',
+            success: function (data) {
+                if (data.status == 200) {
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success('Order Status Updated');
+                }
+            }, error: function () {
+                alert('Error in form');
+            },
+            complete: function () {
+            }
+        });
+    });
 
 
     $('body').on('submit', '.import_form', function (e) {
