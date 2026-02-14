@@ -27,13 +27,13 @@ class DashboardController extends Controller
         $todayAmount  = Order::find()->active()->sum('final_total');
         $todayOrder  = Order::find()->active()->andWhere(['between', 'created_at', strtotime("today"), strtotime("tomorrow") - 1])->count();
         $latestOrder = new ActiveDataProvider([
-            'query' => Order::find()->active()->orderBy(['created_at' => SORT_DESC]),
-            'pagination' => ['defaultPageSize' => 10]
+            'query' => Order::find()->active()->orderBy(['created_at' => SORT_DESC])->limit(5),
+            'pagination' => false
         ]);
 
         $latestCategory = new ActiveDataProvider([
-            'query' => Category::find()->active(),
-            'pagination' => ['defaultPageSize' => 5]
+            'query' => Category::find()->active()->limit(5),
+            'pagination' => false
         ]);
 
         for ($i = 29; $i >= 0; $i--) {
