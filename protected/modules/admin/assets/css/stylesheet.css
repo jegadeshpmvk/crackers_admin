@@ -2128,3 +2128,9 @@ select[name=order_status].form-control {
     border-radius: 6px;
     outline: none;
 }
+.dashboard_chats_recent_orders {
+    flex-direction: column;
+}
+.dashboard_grid_inner .summary {
+    display: none;
+}

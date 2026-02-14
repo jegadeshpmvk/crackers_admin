@@ -567,16 +567,17 @@ var page = {
         }
     },
     customLineChart: function () {
+        var chartDiv = document.querySelector("#lineChart");
+
+        var days = JSON.parse(chartDiv.dataset.days);
+        var orderCounts = JSON.parse(chartDiv.dataset.ordercounts);
         var options = {
             series: [{
-                name: 'Sales',
-                data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-            }, {
                 name: 'Order',
-                data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+                data: orderCounts
             }],
             chart: {
-                type: 'bar',
+                type: 'area',
                 height: 350
             },
             plotOptions: {
@@ -596,26 +597,15 @@ var page = {
                 colors: ['transparent']
             },
             xaxis: {
-                categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-            },
-            yaxis: {
-                title: {
-                    text: '$ (thousands)'
-                }
+                categories: days,
             },
             fill: {
                 opacity: 1
             },
-            tooltip: {
-                y: {
-                    formatter: function (val) {
-                        return "$ " + val + " thousands"
-                    }
-                }
-            }
+
         };
 
-        var chart = new ApexCharts(document.querySelector("#lineChart"), options);
+        var chart = new ApexCharts(chartDiv, options);
         chart.render();
     }
 };

@@ -57,4 +57,27 @@ class ReportController extends Controller
             throw new NotFoundHttpException('The request page does not exist.');
         }
     }
+
+    public function actionExportExcel()
+    {
+        $cells[] = ["S.No", "Name", "Number", "Address Value", "Order Value", "Created at"];
+
+        $Category = Order::find()->select(['id'])->all();
+        if (count($Category) > 0) {
+            foreach (Order::find()->each(10) as $k => $m) {
+                $createdAt = $m->created_at != "" ? date("M d, Y g:i:s A", $m->created_at) : "";
+
+                $arr = [];
+                $arr[] = (int) ($k + 1);
+                $arr[] = $m->customer_name;
+                $arr[] = $m->phone;
+                $arr[] = $m->address;
+                $arr[] = $m->final_total;
+                $arr[] = $createdAt;
+                $cells[] = $arr;
+            }
+        }
+        $fname = 'Report_' . date('d_m_Y_H_i_s');
+        Yii::$app->function->createSpreadSheet($cells, $fname, false);
+    }
 }

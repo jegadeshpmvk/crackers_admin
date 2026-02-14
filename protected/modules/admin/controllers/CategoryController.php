@@ -168,11 +168,11 @@ class CategoryController extends Controller
             // Update or Create
             $model = !empty($row[0]) ? Category::findOne($row[0]) : new Category();
 
-
             $model->name = trim((string)$row[1] ?? '');
             $model->discount = trim((string)$row[2] ?? '');
             $model->alignment = trim((string)$row[3] ?? '');
 
+            // print_r($row);exit;
             if ($model->isNewRecord) {
                 $model->created_at = time();
             }
