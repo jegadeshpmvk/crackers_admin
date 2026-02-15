@@ -40,10 +40,6 @@ GridView::widget([
             'format' => ['date', 'php:d F Y H:i:s a'],
             'label' => 'Date'
         ],
-        [
-            'class' => 'app\extended\ActionColumn',
-            'contentOptions' => ['class' => 'grid-actions']
-        ],
     ],
 ]);
 ?>
