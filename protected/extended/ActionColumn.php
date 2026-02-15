@@ -38,8 +38,8 @@ class ActionColumn extends \yii\grid\ActionColumn
         if (!isset($this->buttons['order_view'])) {
             $this->buttons['order_view'] = function ($url, $model, $key) {
                 $file = Yii::getAlias('@baseUrl') . "/media/files/order/order_" . $model->order_id . ".pdf";
-                return Html::a($this->toolTip('Update'), $file, [
-                    'title' => 'Update',
+                return Html::a($this->toolTip('View'), $file, [
+                    'title' => 'View',
                     'target' => '_blank',
                     'class' => 'fa fa-eye  update-tr',
                     'data-pjax' => '0',

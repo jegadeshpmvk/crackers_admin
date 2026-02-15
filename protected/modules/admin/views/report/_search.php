@@ -13,6 +13,20 @@ use yii\helpers\ArrayHelper;
         'method' => 'get',
     ]);
     ?>
+    <?=
+    $form->field($model, 'from_date', ['options' => ['class' => 'form-group datepicker_icon']])->widget(\yii\jui\DatePicker::classname(), [
+        'options' => ['placeholder' => 'From Date', 'autocomplete' => 'off'],
+        'dateFormat' => 'php:d/m/Y',
+        'class' => 'form-control',
+    ])->label('');
+    ?>
+    <?=
+    $form->field($model, 'to_date', ['options' => ['class' => 'form-group datepicker_icon']])->widget(\yii\jui\DatePicker::classname(), [
+        'options' => ['placeholder' => 'To Date', 'autocomplete' => 'off'],
+        'dateFormat' => 'php:d/m/Y',
+        'class' => 'form-control',
+    ])->label('');
+    ?>
     <?= $form->field($model, 'order_status')
         ->dropDownList([
             1 => 'Order Received',

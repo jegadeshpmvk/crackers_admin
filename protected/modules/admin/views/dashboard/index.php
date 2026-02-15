@@ -33,7 +33,7 @@ use app\extended\GridView;
         <div class="dashboard_grid_inner">
             <h4 class="grid_title">Today Estimate <i class="fa fa-shopping-cart"></i></h4>
             <div class="grid_amount"><?= Yii::$app->formatter->asCurrency($todayAmount, 'INR'); ?><span></span></div>
-            <h4 class="grid_title">From <?= $order;  ?> Orders</h4>
+            <h4 class="grid_title">From <?= $todayOrder;  ?> Orders</h4>
         </div>
     </div>
     <div class="dashboard_grid">

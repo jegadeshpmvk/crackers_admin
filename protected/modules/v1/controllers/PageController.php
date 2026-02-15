@@ -105,7 +105,7 @@ class PageController extends ApiController
             // ✅ Create Order
             $order = new Order();
             $order->order_id = "ORD-" . mt_rand(100000, 999999) . "-" . mt_rand(10, 99);
-            $order->date = date('Y-m-d H:i:s');
+            $order->date = strtotime(date('Y-m-d H:i:s'));
             $order->customer_name = $request->post('customer_name');
             $order->phone = $request->post('number');
             $order->whatsapp = $request->post('whatsapp');

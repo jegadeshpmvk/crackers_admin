@@ -24,8 +24,17 @@ class DashboardController extends Controller
         $product = Product::find()->active()->count();
         $totalAmount  = Order::find()->active()->sum('final_total');
         $order  = Order::find()->active()->count();
-        $todayAmount  = Order::find()->active()->sum('final_total');
-        $todayOrder  = Order::find()->active()->andWhere(['between', 'created_at', strtotime("today"), strtotime("tomorrow") - 1])->count();
+        $start = strtotime(date("Y-m-d 00:00:00")); // Today start
+        $end   = strtotime(date("Y-m-d 23:59:59")); // Today end
+        $todayAmount  = Order::find()->active()->andWhere(['>=', 'created_at', $start])
+            ->andWhere(['<=', 'created_at', $end])->sum('final_total');
+
+        $todayOrder = Order::find()
+            ->active()
+            ->andWhere(['>=', 'created_at', $start])
+            ->andWhere(['<=', 'created_at', $end])
+            ->count();
+        // $todayOrder  = Order::find()->active()->andWhere(['between', 'created_at', $start, $end])->count();
         $latestOrder = new ActiveDataProvider([
             'query' => Order::find()->active()->orderBy(['created_at' => SORT_DESC])->limit(5),
             'pagination' => false
@@ -53,8 +62,8 @@ class DashboardController extends Controller
             'product' => $product,
             'totalAmount' => $totalAmount,
             'order' => $order,
-            'todayAmount' => $todayAmount,
-            'todayOrder' => $todayOrder,
+            'todayAmount' => $todayAmount || 0,
+            'todayOrder' => $todayOrder || 0,
             'latestOrder' => $latestOrder,
             'latestCategory' => $latestCategory,
             'days' => json_encode($days),
