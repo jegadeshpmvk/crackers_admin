@@ -94,7 +94,10 @@ use app\extended\GridView;
                 ],
                 [
                     'attribute' => 'order_status',
-                    'label' => 'Status'
+                    'label' => 'Status',
+                    'value' => function ($model) {
+                        return $model->getOrderSingleStatus($model->order_status);
+                    }
                 ],
             ],
         ]);

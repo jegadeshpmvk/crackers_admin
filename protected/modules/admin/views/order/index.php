@@ -59,14 +59,7 @@ GridView::widget([
                 return Html::dropDownList(
                     'order_status',
                     (int)$model->order_status,
-                    [
-                        1 => 'Order Received',
-                        2 => 'AMT Pending',
-                        3 => 'Amt Received',
-                        4 => 'Packing',
-                        5 => 'Delivered',
-                        6 => 'Cancelled',
-                    ],
+                   $model->orderStatus,
                     [
                         'class' => 'form-control',
                         'data-id' => $model->id,

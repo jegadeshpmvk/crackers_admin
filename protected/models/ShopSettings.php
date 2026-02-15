@@ -82,4 +82,6 @@ class ShopSettings extends ActiveRecord
     {
         return $this->hasMany(Media::className(), ['id' => 'banner_ids']);
     }
+
+    
 }

@@ -50,4 +50,24 @@ class Order extends ActiveRecord
     {
         return $this->hasMany(OrderItems::className(), ['order_id' => 'id']);
     }
+
+    public function getOrderStatus()
+    {
+        return  [
+            1 => 'Order Received',
+            2 => 'AMT Pending',
+            3 => 'Amt Received',
+            4 => 'Packing',
+            5 => 'Delivered',
+            6 => 'Cancelled',
+        ];
+    }
+
+    public function getOrderSingleStatus($status)
+    {
+        $statuses = $this->getOrderStatus();
+
+        // ✅ Safe return (avoid undefined index error)
+        return $statuses[$status] ?? 'Unknown Status';
+    }
 }
