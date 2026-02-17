@@ -10,10 +10,21 @@ use yii\widgets\ActiveForm;
     <h1 class="widgets_title">Shop Settings</h1>
     <div class="widgets_content">
         <div class="_4divs">
+            <div class="form-group " style="margin-top:0px">
+                <label class="control-label" style="margin-bottom:10px">Estimate Page Status</label>
+                <label class="switch">
+                    <input type="checkbox" value="<?= $model->shop_shutdown; ?>"
+                        class="checkbox_setting_enable" data-id="<?= $model->id; ?>"
+                        data-name="Estimate Page Statu"
+                        data-url="/admin/shop-settings/enable" <?= $model->shop_shutdown == 0 ? ' checked' : '' ?>>
+                    <span class="slider_round"></span></label>
+
+            </div>
+        </div>
+        <div class="_4divs">
             <?= $form->field($model, 'shop_name')->textInput(['required' => true]) ?>
             <?= $form->field($model, 'shop_code')->textInput(['required' => true]) ?>
             <?= $form->field($model, 'min_order')->label('Minimum Order Value (Rs)')->textInput(['required' => true]); ?>
-            <?= $form->field($model, 'bill_discount')->label('Billing Discount (%)')->textInput(['required' => true]); ?>
         </div>
         <div class="_4divs">
             <?= $form->field($model, 'whatsapp_number') ?>
@@ -31,7 +42,6 @@ use yii\widgets\ActiveForm;
 </div>
 <div class="model-form widgets">
     <h1 class="widgets_title">Bank Details</h1>
-
     <div class="widgets_content">
         <div class="form-group">
             <div class="repeater-wrap">
@@ -44,6 +54,30 @@ use yii\widgets\ActiveForm;
                                 'form' => $form,
                                 'key' => $k,
                                 'attribute' => "bank_details"
+                            ]);
+                        }
+                    }
+                    ?>
+                </ol>
+                <a class="button repeat-add"><span>Add Item</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="model-form widgets">
+    <h1 class="widgets_title">UPI Details</h1>
+    <div class="widgets_content">
+        <div class="form-group">
+            <div class="repeater-wrap">
+                <ol class="repeater _2cols" data-rel="upi_details">
+                    <?php
+                    if (isset($model->upi_details) && count($model->upi_details) > 0) {
+                        foreach ($model->upi_details as $k => $dl) {
+                            echo $this->render('@app/modules/admin/views/shop-settings/template/upi_details', [
+                                'model' => $model,
+                                'form' => $form,
+                                'key' => $k,
+                                'attribute' => "upi_details"
                             ]);
                         }
                     }
@@ -80,8 +114,8 @@ use yii\widgets\ActiveForm;
     </div>
 </div>
 <div class="model-form widgets">
-    <h1 class="widgets_title">Header Information</h1>
-    <div class="widgets_content">
+    <h1 class="widgets_title" style="pointer-events:none">Header Information</h1>
+    <div class="widgets_content" style="display:none">
         <div class="form-group">
             <label class="control-label">Logo</label>
             <?=
@@ -131,8 +165,8 @@ use yii\widgets\ActiveForm;
     </div>
 </div>
 <div class="model-form widgets">
-    <h1 class="widgets_title">Footer Information</h1>
-    <div class="widgets_content">
+    <h1 class="widgets_title" style="pointer-events:none">Footer Information</h1>
+    <div class="widgets_content" style="display:none">
         <?= $form->field($model, 'text') ?>
         <?= $form->field($model, 'email') ?>
         <div class="form-group">
@@ -205,6 +239,16 @@ $this->render('@app/modules/admin/views/widgets/allPageArr', []);
             'form' => $form,
             'key' => $model->bank_details ? count($model->bank_details) + 1 : 1,
             'attribute' => "bank_details"
+        ]);
+        ?>
+    </div>
+    <div data-for="upi_details">
+        <?=
+        $this->render('@app/modules/admin/views/shop-settings/template/upi_details', [
+            'model' => $model,
+            'form' => $form,
+            'key' => $model->upi_details ? count($model->upi_details) + 1 : 1,
+            'attribute' => "upi_details"
         ]);
         ?>
     </div>

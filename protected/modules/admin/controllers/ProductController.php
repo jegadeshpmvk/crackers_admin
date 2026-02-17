@@ -166,18 +166,28 @@ class ProductController extends Controller
 
         $success = 0;
         $failed = 0;
+        $failedRows = [];
+        foreach ($sheetData as $index => $row) {
 
-        foreach ($sheetData as $row) {
-
-            if (empty($row[2])) { // Name column
+            $rowNumber = $index + 1;
+            if (empty($row[2]) || empty($row[9])) { // Name column
                 $failed++;
+                $failedRows[] = [
+                    'row' => $rowNumber,
+                    'reason' => 'Product Name or Alignment is missing'
+                ];
                 continue;
             }
+
 
             // Find category by name
             $category = Category::find()->where(['name' => trim($row[1])])->one();
             if (!$category) {
                 $failed++;
+                $failedRows[] = [
+                    'row' => $rowNumber,
+                    'reason' => 'Category not found: ' . $row[1]
+                ];
                 continue;
             }
 
@@ -209,13 +219,18 @@ class ProductController extends Controller
                 $success++;
             } else {
                 $failed++;
+                $failedRows[] = [
+                    'row' => $rowNumber,
+                    'reason' => $model->getErrors()
+                ];
             }
         }
 
         return $this->asJson([
             'status' => true,
             'success' => $success,
-            'failed' => $failed
+            'failed' => $failed,
+            'failedRows' => $failedRows
         ]);
     }
 }

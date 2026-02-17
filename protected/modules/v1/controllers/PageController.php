@@ -104,7 +104,12 @@ class PageController extends ApiController
         try {
             // ✅ Create Order
             $order = new Order();
-            $order->order_id = "ORD-" . mt_rand(100000, 999999) . "-" . mt_rand(10, 99);
+            $year = date('Y');
+
+            $lastOrder = Order::find()->where(['like', 'order_id', "ORD-$year-%", false])->orderBy(['id' => SORT_DESC])->one();
+
+            $newNumber = $lastOrder ? ((int) end(explode('-', $lastOrder->order_id)) + 1) : 1;
+            $order->order_id = "ORD-$year-" . str_pad($newNumber, 2, '0', STR_PAD_LEFT);
             $order->date = strtotime(date('Y-m-d H:i:s'));
             $order->customer_name = $request->post('customer_name');
             $order->phone = $request->post('number');

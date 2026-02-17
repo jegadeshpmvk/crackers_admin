@@ -7,7 +7,7 @@ select, map, area, a{border:0px; outline:none;}
 img{border-style:none;}
 h1, h2, h3, h4, h5, h6{font-weight:normal;}
 input[type=text], input[type=password], textarea{text-align:left; background: transparent;}
-input, textarea, select{border:0; outline:none; line-height:normal; -webkit-appearance: none; border-radius: 0;}
+input, textarea{border:0; outline:none; line-height:normal; -webkit-appearance: none; border-radius: 0;}
 input:-webkit-autofill {-webkit-box-shadow: 0 0 0px 1000px white inset !important;}
 textarea{resize:none;}
 form{display: block; position: relative;}

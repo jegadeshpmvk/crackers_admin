@@ -17,7 +17,7 @@ class AppAsset extends AssetBundle
         'css/fonts.css',
         'css/jquery-ui.css',
         'css/editor.css',
-         'css/heatmap.css',
+        'css/heatmap.css',
         'css/stylesheet.css',
     ];
     public $js = [
@@ -35,15 +35,16 @@ class AppAsset extends AssetBundle
         'js/dev/libs/jquery.MCLoadImages.min.js',
         'js/dev/libs/swiper-bundle.js',
         'js/dev/libs/apexcharts.js',
-        
+
         'js/dev/libs/d3.v3.min.js',
         'js/dev/libs/d3-queue.v3.min.js',
-        
+
         'js/dev/utils/pageload.js',
         'js/dev/utils/scrollbar.js',
         'js/dev/utils/media.js',
         'js/dev/utils/jquery.extend.js',
         'js/dev/utils/browser.js',
+        'js/dev/flexible.js',
         'js/dev/validation.js',
         'js/dev/script.js',
         'js/dev/heatmap.js'

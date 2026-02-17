@@ -56,21 +56,21 @@ GridView::widget([
                 $moduleId = Yii::$app->controller->module->id;
                 $controllerId = Yii::$app->controller->id;
                 $urlprefix = "/$moduleId/$controllerId/";
-                return Html::dropDownList(
+                return '<div class="dropdown-wrapper">' . Html::dropDownList(
                     'order_status',
                     (int)$model->order_status,
-                   $model->orderStatus,
+                    $model->orderStatus,
                     [
                         'class' => 'form-control',
                         'data-id' => $model->id,
                         'data-url' => Url::to([$urlprefix . 'status-update'])
                     ]
-                );
+                ) . '</div>';
             },
         ],
         [
             'class' => 'app\extended\ActionColumn',
-            'template' => '{order_view}',
+            'template' => '{order_view}{delete}',
             'contentOptions' => ['class' => 'grid-actions']
         ]
     ],

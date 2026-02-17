@@ -51,9 +51,8 @@ class CategoryController extends Controller
     {
         $model = new Category();
         $model->saveType = 'created';
-        $lastAlignment =  Category::find()->max('alignment');
-        $number = (int) preg_replace('/[^0-9]/', '', $lastAlignment);
-        $model->alignment = $number + 1;
+        $lastAlignment =  Category::find()->select('MAX(CAST(alignment AS UNSIGNED))')->scalar();
+        $model->alignment = $lastAlignment + 1;
         return $this->renderForm($model);
     }
 

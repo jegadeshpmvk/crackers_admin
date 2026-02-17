@@ -9,7 +9,7 @@ use app\extended\GridView;
 
     <?= Html::a('Add New Category', ['category/create'], ['class' => 'fa fa-plus']) ?>
     <?= Html::a('<span>Search</span>', NULL, ['class' => 'fa fa-search']) ?>
-    <?= Html::a('<span>Sort</span>', ['default/order', 'name' => 'Category'], ['class' => 'fa fa-reorder btn']) ?>
+   
 </div>
 <h1 class="p-tl">Category</h1>
 <?=

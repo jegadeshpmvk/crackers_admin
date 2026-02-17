@@ -6,6 +6,7 @@ use Yii;
 use app\modules\admin\components\Controller;
 use app\models\LoginForm;
 use app\models\ChangePassword;
+use app\models\ShopSettings;
 use app\models\Admin;
 use app\models\Media;
 
@@ -24,14 +25,16 @@ class DefaultController extends Controller
 
         $model = new LoginForm();
         $model->type = 'admin';
-       
+
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             Yii::$app->admin->identity->updateCookie();
             return $this->redirect(['dashboard/index']);
         } else {
             $this->onlyContent = true;
+            $shopSetting = ShopSettings::find()->active()->one();
             return $this->render('login', [
                 'model' => $model,
+                'logo' => $shopSetting->logo->url,
             ]);
         }
     }

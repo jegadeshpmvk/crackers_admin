@@ -76,7 +76,7 @@ $(function () {
         console.log(list);
         var rel = list.data('rel');
         var template = $('.templates [data-for="' + rel + '"]').html();
-        var typeArr = ["slider", "grid", "small_icon", "feature-grid"];
+        var typeArr = ["upi_details"];
         if (typeArr.indexOf(rel) >= 0) {
             template = flexibleContent.replaceImageUniqueId(template);
         }
@@ -200,6 +200,31 @@ $(function () {
         });
     });
 
+    $('body').on('change', '.checkbox_setting_enable', function (e) {
+        e.preventDefault();
+        var el = $(this), id = el.attr('data-id'), checked = 1, text = 'disabled';
+        if ($(this).is(":checked")) {
+            var checked = 0, text = 'enabled';
+        }
+        $.ajaxq("get-enable", {
+            url: el.attr('data-url'),
+            type: 'post',
+            data: { id: id, checked: checked },
+            dataType: 'json',
+            success: function (data) {
+                if (data.status == 200) {
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success(el.attr('data-name') + ' ' + text + ' sucessfully');
+                 //   location.reload();
+                }
+            }, error: function () {
+                alert('Error in form');
+            },
+            complete: function () {
+            }
+        });
+    });
+
     $('body').on('change', 'select[name=order_status].form-control', function (e) {
         e.preventDefault();
         var el = $(this), value = el.val(), id = el.attr('data-id');
@@ -219,6 +244,11 @@ $(function () {
             complete: function () {
             }
         });
+    });
+
+    $('body').on('click', '.widgets_title', function () {
+        $(this).next().slideToggle();
+        $(this).toggleClass('collapse');
     });
 
 
@@ -244,7 +274,19 @@ $(function () {
             },
             success: function (res) {
                 if (res.status) {
-                    alert('Imported successfully\nSuccess: ' + res.success + '\nFailed: ' + res.failed);
+                    let message =
+                        "Imported Successfully ✅\n" +
+                        "Success: " + res.success + "\n" +
+                        "Failed: " + res.failed;
+
+                    if (res.failedRows && res.failedRows.length > 0) {
+                        message += "\n\n❌ Failed Rows Details:\n";
+
+                        res.failedRows.forEach(item => {
+                            message += "Row " + item.row + " → " + item.reason + "\n";
+                        });
+                    }
+                    alert(message);
                     $('body').toggleClass('show_popup');
                     location.reload();
                 } else {

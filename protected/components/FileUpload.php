@@ -20,9 +20,9 @@ class FileUpload extends \yii\base\Component
                 'med' => [1400, 'auto']
             ]
         ],
-        "feature" => [
+        "qr_code" => [
             'sizes' => [
-                'big' => [750, 750],
+                'big' => [400, 400],
             ]
         ],
         "product" => [
@@ -40,7 +40,7 @@ class FileUpload extends \yii\base\Component
       ---------------------------------------- */
     protected $formats = [
         'image' => [
-            'format' => ['jpg', 'png', 'jpeg', 'gif', 'bmp', 'svg'],
+            'format' => ['jpg', 'png', 'webp', 'jpeg', 'gif', 'bmp', 'svg'],
             'size' => 10
         ],
         'video' => [

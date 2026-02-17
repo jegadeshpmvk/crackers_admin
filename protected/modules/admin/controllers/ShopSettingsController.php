@@ -5,7 +5,7 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\modules\admin\components\Controller;
 use app\models\ShopSettings;
-use yii\helpers\Html;
+use yii\web\NotFoundHttpException;
 
 class ShopSettingsController extends Controller
 {
@@ -54,5 +54,33 @@ class ShopSettingsController extends Controller
         return $this->render('_form', [
             'model' => $model
         ]);
+    }
+
+    public function actionEnable()
+    {
+        $value = Yii::$app->request->post('checked');
+        $id = Yii::$app->request->post('id');
+        $model = $this->findModel($id);
+        $model->shop_shutdown = (int) $value;
+        if ($value == 1) {
+            $model->saveType = 'deleted';
+        } else {
+            $model->saveType = 'restored';
+        }
+        $model->save(false);
+        $arr = [
+            'status' => 200,
+            'message' => 'Estimate Page Status were ' . $model->saveType . 'd successfully.'
+        ];
+        return json_encode($arr);
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = ShopSettings::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The request page does not exist.');
+        }
     }
 }

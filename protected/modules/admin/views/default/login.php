@@ -9,9 +9,9 @@ $this->title = 'Login';
 <div class="middle-wrap-abs login_page">
     <div class="middle">
         <a href="<?= Url::home() ?>" class="logo_a">
-            <img class="logo" src="<?= Yii::getAlias("@icons") ?>/logo.png" />
+            <img class="logo" src="<?= $logo['thumb'] ?>" />
         </a>
-        <div class="login_form">
+        <div class=" login_form">
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
             <?= $form->field($model, 'email')->textInput() ?>
             <?= $form->field($model, 'password')->passwordInput() ?>

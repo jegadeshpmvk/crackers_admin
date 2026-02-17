@@ -85,8 +85,21 @@ use app\extended\GridView;
                     'label' => 'Order No'
                 ],
                 [
+                    'attribute' => 'created_at',
+                    'format' => ['date', 'php:Y-m-d'],
+                    'label' => 'Date'
+                ],
+                [
                     'attribute' => 'customer_name',
                     'label' => 'Customer Name'
+                ],
+                [
+                    'attribute' => 'phone',
+                    'label' => 'Customer Number'
+                ],
+                [
+                    'attribute' => 'address',
+                    'label' => 'Customer Address'
                 ],
                 [
                     'attribute' => 'final_total',
@@ -99,6 +112,11 @@ use app\extended\GridView;
                         return $model->getOrderSingleStatus($model->order_status);
                     }
                 ],
+                [
+                    'class' => 'app\extended\ActionColumn',
+                    'template' => '{order_view}',
+                    'contentOptions' => ['class' => 'grid-actions']
+                ]
             ],
         ]);
         ?>

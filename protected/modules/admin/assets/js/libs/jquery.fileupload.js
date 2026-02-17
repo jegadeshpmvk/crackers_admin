@@ -35,6 +35,7 @@ var fileuploadcount = 0;
                         $('#file' + fid).prepend(hiddenelem);
                     }
                     hiddenelem.val(data.id);
+                    console.log(fid);
                     //Display thumb is exists
                     if (data.thumb != '')
                         $('#file' + fid).find('img').attr('src', data.thumb);
@@ -59,6 +60,7 @@ var fileuploadcount = 0;
                     });
                     alertify.error(data.reason);
                 }
+                library.close();
             },
             onError: function (elem, fid, msg) {
                 $('#file' + fid).addClass('fa-exclamation-triangle').delay(15000).fadeOut(function () {
@@ -128,8 +130,10 @@ var fileuploadcount = 0;
 
         //Core function
         function fileupload(settings, object, drag) {
+           
             if (settings.method == 'html5') {
                 var files = (typeof drag == "undefined") ? object.files : drag;
+                console.log(files);
                 $.each(files, function (i) {
                     var uniqueid = ++fileuploadcount;
                     clientcheck = checkFile(settings, object, this);
