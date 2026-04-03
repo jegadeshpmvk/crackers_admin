@@ -28,16 +28,12 @@ function printData($data) {
             'name',
             'email:email',
             'phone_number',
+             'location',
             [
                 'label' => 'Message',
                 'value' => nl2br(strip_tags($model->message))
             ],
             'created_at:datetime',
-            [
-                'label' => 'Contact Person Details',
-                'value' => printData(json_decode($model->json, true)),
-                'format' => 'raw'
-            ],
         ],
     ])
     ?>

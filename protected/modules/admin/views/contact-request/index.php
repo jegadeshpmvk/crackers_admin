@@ -21,6 +21,9 @@ GridView::widget([
         [
             'attribute' => 'phone_number'
         ],
+         [
+            'attribute' => 'location'
+        ],
         [
             'attribute' => 'created_at',
             'format' => ['date', 'php:d F Y H:i:s a']
