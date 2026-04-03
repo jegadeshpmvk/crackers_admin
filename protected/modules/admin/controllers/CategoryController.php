@@ -108,6 +108,22 @@ class CategoryController extends Controller
         return json_encode($arr);
     }
 
+    public function actionMultiDelete()
+    {
+        $ids = Yii::$app->request->post('ids');
+        if (!empty($ids)) {
+            Category::deleteAll(['id' => $ids]);
+            return json_encode([
+                'status' => 200,
+                'message' => 'Selected categories deleted successfully.'
+            ]);
+        }
+        return json_encode([
+            'status' => 400,
+            'message' => 'No items selected.'
+        ]);
+    }
+
     protected function findModel($id)
     {
         if (($model = Category::findOne($id)) !== null) {

@@ -9,13 +9,18 @@ use app\extended\GridView;
 
     <?= Html::a('Add New Category', ['category/create'], ['class' => 'fa fa-plus']) ?>
     <?= Html::a('<span>Search</span>', NULL, ['class' => 'fa fa-search']) ?>
-   
+    <?= Html::a('<span>Multi Delete</span>', NULL, ['class' => 'fa fa-trash multi_delete']) ?>
 </div>
 <h1 class="p-tl">Category</h1>
 <?=
 GridView::widget([
+    'id' => 'category-grid',
     'dataProvider' => $dataProvider,
     'columns' => [
+        [
+            'class' => 'yii\grid\CheckboxColumn',
+            'contentOptions' => ['class' => 'grid-actions custom_checkbox']
+        ],
         [
             'attribute' => 'name'
         ],
@@ -39,3 +44,24 @@ GridView::widget([
 ?>
 <?= $this->render('_search', ['model' => $searchModel]) ?>
 <?= $this->render('_import') ?>
+
+<?php
+$this->registerJs("
+    $('.multi_delete').click(function(){
+        var ids = $('#category-grid').yiiGridView('getSelectedRows');
+        if(ids.length > 0){
+            if(confirm('Are you sure you want to delete the selected items?')){
+                $.post('" . \yii\helpers\Url::to(['multi-delete']) . "', {ids: ids}, function(data){
+                    if(data.status == 200){
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                }, 'json');
+            }
+        } else {
+            alert('Please select at least one item.');
+        }
+    });
+");
+?>

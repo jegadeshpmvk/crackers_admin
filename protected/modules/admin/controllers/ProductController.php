@@ -32,6 +32,22 @@ class ProductController extends Controller
         ]);
     }
 
+      public function actionMultiDelete()
+    {
+        $ids = Yii::$app->request->post('ids');
+        if (!empty($ids)) {
+            Product::deleteAll(['id' => $ids]);
+            return json_encode([
+                'status' => 200,
+                'message' => 'Selected Products deleted successfully.'
+            ]);
+        }
+        return json_encode([
+            'status' => 400,
+            'message' => 'No items selected.'
+        ]);
+    }
+
     protected function renderForm($model)
     {
         if ($model->load(Yii::$app->request->post())) {

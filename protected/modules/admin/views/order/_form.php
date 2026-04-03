@@ -8,7 +8,7 @@ $form = ActiveForm::begin();
 ?>
 
 <div class="model-form widgets button_margin">
-    <h1 class="widgets_title">Category details</h1>
+    <h1 class="widgets_title">Order details</h1>
     <div class="widgets_content common_form event_form">
         <div class="event_coloum_1">
             <div class="_2divs">

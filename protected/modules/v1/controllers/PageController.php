@@ -12,6 +12,7 @@ use app\models\Coupon;
 use app\models\Order;
 use app\models\OrderItems;
 use app\models\Delivery;
+use app\models\ContactRequest;
 use app\components\ApiController;
 // use mikehaertl\wkhtmlto\Pdf;
 use Dompdf\Dompdf;
@@ -83,6 +84,33 @@ class PageController extends ApiController
 
         return $query->one();
     }
+
+    public function actionContactForm()
+    {
+        $request = Yii::$app->request;
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try {
+            $contact = new ContactRequest();
+            $contact->name = $request->post('name');
+            $contact->email = $request->post('email');
+            $contact->phone = $request->post('phone');
+            $contact->message = $request->post('message');
+            $contact->save();
+            $transaction->commit();
+            return $this->asJson([
+                'status' => true,
+                'message' => 'Contact Form Submitted Successfully'
+            ]);
+        } catch (\Throwable $e) {
+            $transaction->rollBack();
+            return $this->asJson([
+                'status' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
 
     public function actionConfirmOrder()
     {

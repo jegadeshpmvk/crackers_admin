@@ -128,7 +128,7 @@ $config = [
                 '<action:(download-order)>' => 'site/<action>',
                 //API Page
                 'OPTIONS,GET v1/<action:(shop-settings|get-deliveries|get-categories|get-products)>' => 'v1/page/<action>',
-                'OPTIONS,POST v1/<action:(get-coupon|confirm-order)>' => 'v1/page/<action>',
+                'OPTIONS,POST v1/<action:(get-coupon|confirm-order|contact-form)>' => 'v1/page/<action>',
                 'OPTIONS,GET v1/order-view/<id:.+>' => 'v1/page/order-view',
             ],
         ],

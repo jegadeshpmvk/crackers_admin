@@ -67,8 +67,8 @@ class ActionColumn extends \yii\grid\ActionColumn
             $this->buttons['delete'] = function ($url, $model, $key) {
                 return Html::a($this->toolTip('Delete'), Url::to([$this->urlprefix . 'delete', 'id' => (string) $key]), [
                     'title' => 'Delete',
-                    'class' => 'fa fa-trash-o',
-                    'data-pjax' => '0',
+                    'class' => 'fa fa-trash-o custom_delete',
+                    'data-pjax' => '1',
                 ]);
             };
         }

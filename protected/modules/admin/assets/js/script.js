@@ -215,7 +215,7 @@ $(function () {
                 if (data.status == 200) {
                     alertify.set('notifier', 'position', 'top-right');
                     alertify.success(el.attr('data-name') + ' ' + text + ' sucessfully');
-                 //   location.reload();
+                    //   location.reload();
                 }
             }, error: function () {
                 alert('Error in form');
@@ -249,6 +249,16 @@ $(function () {
     $('body').on('click', '.widgets_title', function () {
         $(this).next().slideToggle();
         $(this).toggleClass('collapse');
+    });
+
+
+    $('body').on('click', '.custom_delete', function () {
+        if (confirm("Are you sure you want to delete this?")) {
+            window.location.href = $(this).attr('href');
+        }
+        else {
+            return false;
+        }
     });
 
 

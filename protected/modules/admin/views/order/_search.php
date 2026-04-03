@@ -16,6 +16,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'order_id'); ?>
     <?= $form->field($model, 'customer_name'); ?>
     <?= $form->field($model, 'phone'); ?>
+    <?= $form->field($model, 'order_status', ['options' => ['class' => 'form-group form_select']])->dropDownList($model->orderStatus, ['prompt' => 'Select...', 'required' => 'required'])->label("Status"); ?>
 
     <div class="form-group actions">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
