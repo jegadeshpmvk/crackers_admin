@@ -160,7 +160,6 @@ class PageController extends ApiController
 
             // ✅ Save Order Items
             foreach ($cart as $item) {
-
                 $orderItem = new OrderItems();
                 $orderItem->order_id = $orderId;
                 $orderItem->product_id = $item['id'];

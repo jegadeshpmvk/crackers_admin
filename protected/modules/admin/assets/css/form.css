@@ -424,3 +424,144 @@ input:checked+.slider_round:after {
 input[type="checkbox"].select-on-check-all {
     -webkit-appearance: checkbox;
 }
+
+/* Billing form specific improvements */
+/* Billing form specific improvements - match reference spacing and typography */
+.model-form.widgets .widgets_title {
+    font-size: 15px;
+    color: #4a4a4a;
+    font-weight: 600;
+}
+
+#items-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 18px;
+}
+
+#items-table thead th {
+    background: #f3f6f9;
+    color: #6b7a8a;
+    font-weight: 700;
+    padding: 18px 14px;
+    border-bottom: 1px solid #e9eef3;
+    text-align: left;
+    font-size: 13px;
+}
+
+#items-table tbody td {
+    padding: 16px 14px;
+    vertical-align: middle;
+    font-size: 14px;
+    color: #333;
+}
+
+#items-table tbody tr.item-row {
+    border-bottom: 1px solid #f0f3f6;
+}
+
+#items-table .sno {
+    width: 40px;
+    color: #666;
+}
+
+#items-table td .product-select,
+#items-table td .form-control {
+    height: 36px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid #e3e7ea;
+    box-shadow: none;
+}
+
+#items-table .product-select {
+    min-width: 280px;
+}
+
+#items-table .mrp,
+#items-table .price,
+#items-table .qty,
+#items-table .discount,
+#items-table .discount-price,
+#items-table .total-price {
+    text-align: center;
+}
+
+#items-table .select2-container--default .select2-selection--single {
+    height: 36px;
+    border-radius: 4px;
+    border: 1px solid #e3e7ea;
+}
+
+#items-table .select2-container .select2-selection__rendered {
+    line-height: 34px;
+    padding-left: 6px;
+}
+
+#items-table .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 36px;
+}
+
+.btn-success,
+button#add-item {
+    background: #29a35c;
+    color: #fff;
+    border: 0;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.btn-success:hover,
+button#add-item:hover {
+    background: #22884d;
+}
+
+.btn-danger {
+    background: #d9534f;
+    color: #fff;
+    border: 0;
+    padding: 6px 8px;
+    border-radius: 6px;
+}
+
+#total-amount,
+#total-quantity {
+    font-weight: 600;
+    background: #fff;
+    border: 1px solid #e6ecf1;
+    padding: 8px;
+    height: 36px;
+}
+
+#billing-submit {
+    background: #2e7d32;
+    color: #fff;
+    border: 0;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+#billing-submit:hover {
+    background: #256e2d;
+}
+
+/* Align totals row to look like reference */
+.row.totals-row {
+    margin-top: 14px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 992px) {
+    #items-table thead th {
+        padding: 12px 8px;
+        font-size: 12px;
+    }
+
+    #items-table tbody td {
+        padding: 10px 8px;
+    }
+}

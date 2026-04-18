@@ -14,11 +14,12 @@ else
             <li<?php if ($tab == 'product') echo ' class="active"'; ?> title="Product"><?= Html::a('<span>Product</span>', ['product/index'], ['class' => 'fa fa-shopping-bag']) ?></li>
                 <li<?php if ($tab == 'coupon') echo ' class="active"'; ?> title="Coupon"><?= Html::a('<span>Coupon</span>', ['coupon/index'], ['class' => 'fa fa-ticket']) ?></li>
                     <li<?php if ($tab == 'order') echo ' class="active"'; ?> title="Order"><?= Html::a('<span>Order</span>', ['order/index'], ['class' => 'fa fa-ticket']) ?></li>
-                        <li<?php if ($tab == 'report') echo ' class="active"'; ?> title="Report"><?= Html::a('<span>Report</span>', ['report/index'], ['class' => 'fa fa-ticket']) ?></li>
-                            <li<?php if ($tab == 'delivery') echo ' class="active"'; ?> title="Delivery"><?= Html::a('<span>Delivery</span>', ['delivery/index'], ['class' => 'fa fa-truck']) ?></li>
-                                <li<?php if ($tab == 'media') echo ' class="active"'; ?> title="Media"><?= Html::a('<span>Media</span>', ['media/index'], ['class' => 'fa fa-picture-o']) ?></li>
+                        <li<?php if ($tab == 'billing') echo ' class="active"'; ?> title="Billing"><?= Html::a('<span>Billing</span>', ['billing/create'], ['class' => 'fa fa-ticket']) ?></li>
+                            <li<?php if ($tab == 'report') echo ' class="active"'; ?> title="Report"><?= Html::a('<span>Report</span>', ['report/index'], ['class' => 'fa fa-ticket']) ?></li>
+                                <li<?php if ($tab == 'delivery') echo ' class="active"'; ?> title="Delivery"><?= Html::a('<span>Delivery</span>', ['delivery/index'], ['class' => 'fa fa-truck']) ?></li>
+                                    <li<?php if ($tab == 'media') echo ' class="active"'; ?> title="Media"><?= Html::a('<span>Media</span>', ['media/index'], ['class' => 'fa fa-picture-o']) ?></li>
 
-                                    <li<?php if ($tab == 'contact') echo ' class="active"'; ?> title="Contact Request"><?= Html::a('<span>Contact Request</span>', ['contact-request/index'], ['class' => 'fa fa-comments']) ?></li>
+                                        <li<?php if ($tab == 'contact') echo ' class="active"'; ?> title="Contact Request"><?= Html::a('<span>Contact Request</span>', ['contact-request/index'], ['class' => 'fa fa-comments']) ?></li>
 
 </ul>
 <ul class="nav">

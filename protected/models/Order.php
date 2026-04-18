@@ -18,6 +18,9 @@ class Order extends ActiveRecord
     public function rules()
     {
         $rules = [
+            // required fields for billing form (match the visible form fields)
+            [['customer_name', 'date', 'payment_method', 'phone', 'id_proof', 'id_proof_number', 'whatsapp', 'address'], 'required'],
+
             [[
                 'order_id',
                 'date',
@@ -33,7 +36,10 @@ class Order extends ActiveRecord
                 'promotion_discount',
                 'promotion_discount_id',
                 'final_total',
-                'order_status'
+                'order_status',
+                'id_proof',
+                'id_proof_number',
+                'payment_method'
             ], 'safe']
         ];
         return ArrayHelper::merge(parent::rules(), $rules);
