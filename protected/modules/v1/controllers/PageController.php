@@ -23,8 +23,8 @@ class PageController extends ApiController
     public function behaviors()
     {
         $b = parent::behaviors();
-        $b['authenticator']['except'] = ['shop-settings', 'order-view', 'get-categories', 'get-products', 'confirm-order', 'get-deliveries', 'get-coupon'];
-        $b['access']['except'] = ['shop-settings', 'order-view', 'get-categories', 'get-deliveries', 'confirm-order', 'get-products', 'get-coupon'];
+        $b['authenticator']['except'] = ['shop-settings', 'order-view', 'get-categories', 'get-products', 'confirm-order', 'get-deliveries', 'get-coupon','contact-form'];
+        $b['access']['except'] = ['shop-settings', 'order-view', 'get-categories', 'get-deliveries', 'confirm-order', 'get-products', 'get-coupon', 'contact-form'];
         return $b;
     }
 
@@ -94,7 +94,8 @@ class PageController extends ApiController
             $contact = new ContactRequest();
             $contact->name = $request->post('name');
             $contact->email = $request->post('email');
-            $contact->phone = $request->post('phone');
+            $contact->phone_number = $request->post('phone_number');
+             $contact->location = $request->post('location');
             $contact->message = $request->post('message');
             $contact->save();
             $transaction->commit();
