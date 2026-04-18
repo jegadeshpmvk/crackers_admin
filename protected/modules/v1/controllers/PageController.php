@@ -137,8 +137,14 @@ class PageController extends ApiController
 
             $lastOrder = Order::find()->where(['like', 'order_id', "ORD-$year-%", false])->orderBy(['id' => SORT_DESC])->one();
 
-            $newNumber = $lastOrder ? ((int) end(explode('-', $lastOrder->order_id)) + 1) : 1;
+           $newNumber = 1;
+
+            if ($lastOrder) {
+                $parts = explode('-', $lastOrder->order_id);
+                $newNumber = ((int) array_pop($parts)) + 1;
+            }
             $order->order_id = "ORD-$year-" . str_pad($newNumber, 2, '0', STR_PAD_LEFT);
+          
             $order->date = strtotime(date('Y-m-d H:i:s'));
             $order->customer_name = $request->post('customer_name');
             $order->phone = $request->post('number');
@@ -146,18 +152,21 @@ class PageController extends ApiController
             $order->email = $request->post('email');
             $order->address = $request->post('address');
             $order->state = $request->post('state');
+            $order->refer = $request->post('refer');
             $order->total = $request->post('total');
             $order->final_total = $request->post('final_total');
             $order->packing_charge = $request->post('packing_charge', 0);
             $order->promotion_discount = $request->post('promotion_discount', 0);
             $order->promotion_discount_id = $request->post('promotion_discount_id', 0);
             $order->order_status = 1;
-
+           
             if (!$order->save()) {
                 throw new \Exception("Order Save Failed: " . json_encode($order->errors));
             }
+           
 
             $orderId = $order->id;
+           
 
             // ✅ Save Order Items
             foreach ($cart as $item) {

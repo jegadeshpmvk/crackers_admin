@@ -35,6 +35,8 @@ class ShopSettingsController extends Controller
             $model->saveType = 'updated';
         if ($model->load(Yii::$app->request->post())) {
             $postRequest = Yii::$app->request->post("ShopSettings");
+            // echo '<pre>';
+            // print_r($model->alternate_mobile_mumber);exit;
             $image = isset($postRequest["logo_id"]) && $postRequest["logo_id"] != "" ? $postRequest["logo_id"] : false;
             if (!$image) {
                 $model->logo_id = "";

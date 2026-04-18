@@ -181,17 +181,38 @@ use yii\helpers\ArrayHelper;
                 <td></td>
 
                 <td align="right">
-                    Email : <b><?= $settings->email ?></b>
+                    Email : <b><?= $settings->email_id ?></b>
                 </td>
             </tr>
         </table>
 
 
-        <!-- ================= COMPANY ================= -->
-        <div class="company-block">
-            <h2><?= $settings->shop_name ?></h2>
-            <p><?= $settings->address ?></p>
-        </div>
+             <!-- COMPANY -->
+                 <table class="company-block" style="width:100%; border-top:1px solid #000; border-bottom:1px solid #000;">
+    <tr>
+
+              <!-- Logo (20%) -->
+        <td width="20%" style="text-align:left; vertical-align:middle; padding:10px;">
+            <?php
+            $logoPath = '';
+            if (!empty($settings->logo) && !empty($settings->logo->url['file'])) {
+                $logoPath = $settings->logo->url['file'];
+            }
+            ?>
+
+            <?php if ($logoPath): ?>
+                <img src="<?= $logoPath ?>" style="width:80px; height:auto;">
+            <?php endif; ?>
+        </td>
+
+        <!-- Company Info (80%) -->
+        <td width="80%" style="text-align:center; vertical-align:middle; padding:10px;">
+            <h2 style="margin:0;"><?= $settings->shop_name ?></h2>
+            <p style="margin-top:5px;"><?= $settings->address ?></p>
+        </td>
+
+    </tr>
+</table>
 
 
         <!-- ================= CUSTOMER + BANK DETAILS ================= -->

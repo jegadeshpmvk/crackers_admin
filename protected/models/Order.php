@@ -19,7 +19,7 @@ class Order extends ActiveRecord
     {
         $rules = [
             // required fields for billing form (match the visible form fields)
-            [['customer_name', 'date', 'payment_method', 'phone', 'id_proof', 'id_proof_number', 'whatsapp', 'address'], 'required'],
+            [['customer_name', 'date',  'phone',  'whatsapp', 'address'], 'required'],
 
             [[
                 'order_id',

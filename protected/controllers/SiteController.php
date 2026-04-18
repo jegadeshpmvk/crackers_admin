@@ -8,13 +8,18 @@ use Yii;
 class SiteController extends Controller
 {
 
-    public function actionIndex()
-    {
+    // public function actionIndex()
+    // {
 
-        return $this->render('index', [
-            'page' => 'Home',
-        ]);
-    }
+    //     return $this->render('index', [
+    //         'page' => 'Home',
+    //     ]);
+    // }
+    
+    public function actionIndex()
+{
+    $this->redirect(array('admin/login'));
+}
     
     public function actionDownloadOrder($file)
     {

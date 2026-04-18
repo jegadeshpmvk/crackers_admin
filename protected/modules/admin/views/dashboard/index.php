@@ -25,14 +25,14 @@ use app\extended\GridView;
     <div class="dashboard_grid">
         <div class="dashboard_grid_inner">
             <h4 class="grid_title">Total Estimate <i class="fa fa-shopping-cart"></i></h4>
-            <div class="grid_amount"><?= Yii::$app->formatter->asCurrency($totalAmount, 'INR'); ?><span></span></div>
+            <div class="grid_amount"><?= Yii::$app->formatter->asCurrency((float)$totalAmount, 'INR'); ?><span></span></div>
             <h4 class="grid_title">From <?= $order;  ?> Orders</h4>
         </div>
     </div>
     <div class="dashboard_grid">
         <div class="dashboard_grid_inner">
             <h4 class="grid_title">Today Estimate <i class="fa fa-shopping-cart"></i></h4>
-            <div class="grid_amount"><?= Yii::$app->formatter->asCurrency($todayAmount, 'INR'); ?><span></span></div>
+            <div class="grid_amount"><?= Yii::$app->formatter->asCurrency((float)$todayAmount, 'INR'); ?><span></span></div>
             <h4 class="grid_title">From <?= $todayOrder;  ?> Orders</h4>
         </div>
     </div>
