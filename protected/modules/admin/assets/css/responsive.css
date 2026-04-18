@@ -1,7 +1,8 @@
 @media only screen and (max-width: 960px) {
-    .panel.left {
+    .panel.left, .panel_left_div, .nav {
         width:40px;
     }
+    
     .nav li a.fa:before {
         font-size: 14px;
     }
